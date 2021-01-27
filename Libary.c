@@ -297,7 +297,33 @@ int getListSize(Node *head) {
     return listSize;
 }
 
+int getEvenListSize(Node *head) {
+    int listSize = 0;
+    Node *current = head;
 
+    while (current != NULL) {
+        if ((current->value % 2) == 0) {
+            listSize++;
+        }
+        current = current->next;
+    }
+
+    return listSize;
+}
+
+int getOddListSize(Node *head) {
+    int listSize = 0;
+    Node *current = head;
+
+    while (current != NULL) {
+        if ((current->value) % 2 != 0) {
+            listSize++;
+        }
+        current = current->next;
+    }
+
+    return listSize;
+}
 
 int sumValues(Node *head) {
     int sum = 0;
@@ -321,19 +347,30 @@ double calculateAverage(Node *head) {
     return lfAverage;
 }
 
+double calculatePercentage(int listSize, int shareListSize) {
+    double sharePercentage = ((double) shareListSize / listSize) * 100;
+}
+
 int main() {
     Node *testList = NULL;
+    double percentage = 0;
 
     Node *aNode = createNode(3);
     Node *backNode = createNode(10);
     Node *c = createNode(16);
-    Node *afterNode = createNode(17);
+    Node *afterNode = createNode(18);
 
     testList = addAfterLess(testList, c);
     testList = addAfterLess(testList, aNode);
     testList = addAfterLess(testList, backNode);
 
     testList = addAfterLess(testList, afterNode);
+
+    int evenListSize = getEvenListSize(testList);
+    int listSize = getListSize(testList);
+    percentage = calculatePercentage(listSize, evenListSize);
+
+    printf("anteil an geraden zahlen %0.2lf\n", percentage);
 
     printList(testList);
     printf("\n");
