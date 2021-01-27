@@ -205,83 +205,59 @@ void freeList(Node *head) {
 
 Node *deleteNodesWithValue(Node *head, int value) {
     Node *current = head;
+    Node *newList = NULL;
+    Node *toAdd = NULL;
 
-    // We need to check if the head has the value
-    if (current != NULL && current->value == value) {
-        current = current->next;
-
-        free(head);
-        return current;
-    }
-
-    Node *previous = NULL;
     while (current != NULL) {
-        if (current->value == value) {
-            previous->next = current->next;
-
-            free(current);
-            current = previous->next;
-        } else {
-            previous = current;
-            current = current->next;
+        if (current->value != value) {
+            toAdd = createNode(current->value);
+            newList = addBack(newList, toAdd);
         }
+
+        current = current->next;
     }
 
-    return head;
+    freeList(head);
+
+    return newList;
 }
 
 Node *deleteOddNumbers(Node *head) {
     Node *current = head;
+    Node *newList = NULL;
+    Node *toAdd = NULL;
 
-    // We need to check if the head has the value
-    if (current != NULL && (current->value % 2) != 0) {
-        current = current->next;
-
-        free(head);
-        return current;
-    }
-
-    Node *previous = NULL;
-    while (current != NULL) {
-        if ((current->value % 2) != 0) {
-            previous->next = current->next;
-
-            free(current);
-            current = previous->next;
-        } else {
-            previous = current;
-            current = current->next;
-        }
-    }
-
-    return head;
-}
-
-Node *deletEvenNumbers(Node *head) {
-    Node *current = head;
-
-    // We need to check if the head has the value
-    if (current != NULL && (current->value % 2) == 0) {
-        current = current->next;
-
-        free(head);
-        return current;
-    }
-
-    Node *previous = NULL;
     while (current != NULL) {
         if ((current->value % 2) == 0) {
-            previous->next = current->next;
-
-            free(current);
-            current = previous->next;
-        } else {
-            previous = current;
-            current = current->next;
+            toAdd = createNode(current->value);
+            newList = addBack(newList, toAdd);
         }
+
+        current = current->next;
     }
 
-    return head;
+    freeList(head);
+
+    return newList;
+}
+
+Node *deleteEvenNumbers(Node *head) {
+    Node *current = head;
+    Node *newList = NULL;
+    Node *toAdd = NULL;
+
+    while (current != NULL) {
+        if ((current->value % 2) != 0) {
+            toAdd = createNode(current->value);
+            newList = addBack(newList, toAdd);
+        }
+
+        current = current->next;
+    }
+
+    freeList(head);
+
+    return newList;
 }
 
 Node *incrementValues(Node *head) {
@@ -321,6 +297,8 @@ int getListSize(Node *head) {
     return listSize;
 }
 
+
+
 int sumValues(Node *head) {
     int sum = 0;
     Node *current = head;
@@ -346,21 +324,21 @@ double calculateAverage(Node *head) {
 int main() {
     Node *testList = NULL;
 
-    Node *aNode = createNode(4);
+    Node *aNode = createNode(3);
     Node *backNode = createNode(10);
     Node *c = createNode(16);
     Node *afterNode = createNode(17);
 
-    testList = addAfterBigger(testList, c);
-    testList = addAfterBigger(testList, aNode);
-    testList = addAfterBigger(testList, backNode);
+    testList = addAfterLess(testList, c);
+    testList = addAfterLess(testList, aNode);
+    testList = addAfterLess(testList, backNode);
 
-    testList = addAfterBigger(testList, afterNode);
+    testList = addAfterLess(testList, afterNode);
 
     printList(testList);
     printf("\n");
 
-    testList = deleteOddNumbers(testList);
+    testList = deleteEvenNumbers(testList);
 
     printList(testList);
 
