@@ -350,35 +350,3 @@ double calculateAverage(Node *head) {
 double calculatePercentage(int listSize, int shareListSize) {
     double sharePercentage = ((double) shareListSize / listSize) * 100;
 }
-
-int main() {
-    Node *testList = NULL;
-    double percentage = 0;
-
-    Node *aNode = createNode(3);
-    Node *backNode = createNode(10);
-    Node *c = createNode(16);
-    Node *afterNode = createNode(18);
-
-    testList = addAfterLess(testList, c);
-    testList = addAfterLess(testList, aNode);
-    testList = addAfterLess(testList, backNode);
-
-    testList = addAfterLess(testList, afterNode);
-
-    int evenListSize = getEvenListSize(testList);
-    int listSize = getListSize(testList);
-    percentage = calculatePercentage(listSize, evenListSize);
-
-    printf("anteil an geraden zahlen %0.2lf\n", percentage);
-
-    printList(testList);
-    printf("\n");
-
-    testList = deleteEvenNumbers(testList);
-
-    printList(testList);
-
-    freeList(testList);
-    return 0;
-}
